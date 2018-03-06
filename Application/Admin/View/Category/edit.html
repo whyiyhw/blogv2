@@ -1,0 +1,59 @@
+<extend name="Public:base" />
+<block name="title"><title>编辑分类</title></block>
+<block name="body"><div id="main">
+    <!-- START PAGE -->
+    <div id="page">
+        <!-- start page title -->
+        <div class="page-title">
+            <div class="in">
+                <div class="titlebar">	<h2>分类管理</h2>	<p>编辑分类</p></div>
+
+                <div class="clear"></div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <!-- START CONTENT -->
+        <div class="content">
+            <div class="simplebox grid740" style="z-index: 720;">
+                <div class="titleh" style="z-index: 710;">
+                    <h3>编辑分类</h3>
+                </div>
+                <div class="body" style="z-index: 690;">
+                    <form id="form2" name="form2" method="post" action="{:U('edit')}">
+                        <div class="st-form-line" style="z-index: 680;">
+                            <span class="st-labeltext">名称</span>
+                            <input name="name" type="text" class="st-forminput" style="width:510px" value="{$res.c_name}">
+                            <div class="clear" style="z-index: 670;"></div>
+                        </div>
+                        <div class="st-form-line" style="z-index: 640;">
+                            <span class="st-labeltext">父分类</span>
+                            <select name="parent_id" class="uniform">
+                                <option value="0">无</option>
+
+                                <foreach name='category' item='cat'>
+                                    <option value="{$cat.id}" <eq name="res.c_parent_id" value="$cat.id">selected='selected'</eq>>{$cat.lev|str_repeat='---',###}{$cat['c_name']}</option>
+                                </foreach>
+
+                            </select>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="st-form-line" style="z-index: 680;">
+                            <span class="st-labeltext">排序</span>
+                            <input name="sort" type="text" class="st-forminput" style="width:510px" value="{$res.c_sort}">
+                            <div class="clear" style="z-index: 670;"></div>
+                        </div>
+                        <div class="button-box" style="z-index: 460;">
+                            <input type="hidden" name='id' value="{$Think.get.id}"/>
+                            <input type="submit"  id="button" value="提交" class="st-button">
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <!-- END CONTENT -->
+    </div>
+    <!-- END PAGE -->
+    <div class="clear"></div>
+</div></block>

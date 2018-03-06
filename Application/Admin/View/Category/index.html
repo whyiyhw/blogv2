@@ -1,0 +1,58 @@
+<extend name="Public:base" />
+<block name="title"><title>分类列表</title></block>
+<block name="body"><div id="main">
+        <!-- START PAGE -->
+        <div id="page">
+            <!-- start page title -->
+            <div class="page-title">
+                <div class="in">
+                    <div class="titlebar">	<h2>分类管理</h2>	<p>分类列表</p></div>
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <!-- START CONTENT -->
+            <div class="content">
+                <!-- START TABLE -->
+                <div class="simplebox grid740">
+
+                    <div class="titleh">
+                        <h3>分类列表</h3>
+                    </div>
+
+                    <table id="myTable" class="tablesorter">
+                        <thead>
+                        <tr>
+                            <th>#ID</th>
+                            <th>名称</th>
+                            <th>下属博文数量</th>
+                            <th>排序</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <volist name='data.date' id='cat'>
+                        <tr>
+                            <td>{$key+1}</td>
+                            <td>{$cat.lev|str_repeat='---',###}{$cat.c_name}</td>
+                            <td>6</td>
+                            <td>{$cat.c_sort}</td>
+                            <td>
+                                <a href="{:U('edit','id='.$cat['id'])}">编辑</a>
+                                <a href="{:U('del','id='.$cat['id'])}" onclick="return confirm('确定删除{$cat.c_name}?');">删除</a>
+                            </td>
+                        </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                    {$data['pagestr']}
+                </div>
+                <!-- END TABLE -->
+            </div>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END PAGE -->
+        <div class="clear"></div>
+    </div></block>
