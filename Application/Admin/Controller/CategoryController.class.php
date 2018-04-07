@@ -13,7 +13,7 @@ class CategoryController extends CommentController
         #加上一个分页列表
         #拿到文章列表
         $model = D('Category');
-        $data = $model->listDate('id>0',3);
+        $data = $model->listDate('id>0',5);
         #dump($data['pagestr']);die;
         $this->assign('data', $data);
 

@@ -21,6 +21,7 @@
 <title>易的博客后台</title>
 </head>
 <body>
+<body><img width="100%" height="100%" src="/Public/Hui/static/h-ui.admin/images/admin-login-bg.jpg" style="position:absolute; left:0; top:0; z-index:-1;"/></body>
 <div class="loginWraper">
   <div id="loginform" class="loginBox">
     <form class="form form-horizontal" action='<?php echo U();?>' method="post">

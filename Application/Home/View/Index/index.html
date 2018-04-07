@@ -18,7 +18,10 @@
     <div class="topbar">
       <div class="container">
         <a href="{:U('index')}" class="site-logo">
-          博文前台
+          首页
+        </a>
+        <a href="{:U('chat')}" class="site-logo">
+          聊天室
         </a><!-- .site-logo -->
 
         <!-- Mobile Menu Toggle -->
@@ -88,7 +91,7 @@
                       <a href="#">12</a>
                     </span>-->
                   </div>
-                  <div class="column"><span>{$cat.a_publishtime|date='Y-m-d H:i:s',###}</span></div>
+                  <div class="column"><span>{$cat.a_publishtime|date='Y-m-d',###}</span></div>
                 </div><!-- .post-meta -->
                 <h3 class="post-title">{$cat.a_name}</h3>
                 <p>{$cat.a_content|mb_substr=###,0,50,'utf-8'}...</p>

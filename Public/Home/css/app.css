@@ -14067,35 +14067,33 @@ body::before {
   margin-top: 28px;
 }
 
-.pagination li, .pagination li a {
+.pagination div span, .pagination div a {
   display: inline-block;
   font-size: 14px;
   color: #000;
   font-weight: 600;
   text-decoration: none;
-  border: none;
   padding: 8px 15px 8px 15px;
-  word-wrap: no-wrap;
-  overflow-wrap: no-wrap;
   margin: 0 0 10px -2px;
+  border: 1px solid #ccc;
 }
 
-.pagination li.current, .pagination li a.current {
+ .pagination div span.current {
   color: #fff;
   background-color: #2895f1;
 }
 
-.pagination li a {
+.pagination div a {
   cursor: pointer;
 }
 
-.pagination li {
+.pagination div {
   -webkit-transition: color 0.3s;
   -o-transition: color 0.3s;
   transition: color 0.3s;
 }
 
-.pagination li a:hover {
+.pagination div a:hover {
   color: #2895f1;
 }
 

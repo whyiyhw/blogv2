@@ -11,8 +11,7 @@ class ArticleController extends CommentController
 
         #拿到文章列表
         $model = D('Article');
-        $data = $model->listDate([],3);
-//        dump($data);die;
+        $data = $model->listDate([],5);
         $this->assign('count', count($data['dates']));
         $this->assign('data', $data);
         $this->display();

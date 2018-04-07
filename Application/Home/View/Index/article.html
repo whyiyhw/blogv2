@@ -79,7 +79,7 @@
                 <a href="#">12</a>
               </span>
             </div>
-            <div class="column"><span>{$cat.a_publishtime|date='Y-m-d H:i:s',###}</span></div>
+            <div class="column"><span>{$cat.a_publishtime|date='Y-m-d',###}</span></div>
           </div><!-- .post-meta -->
           <!--<img src="Public/Home/img/blog/single/slide01.jpg" alt="Image">-->
           {$cat.a_content|htmlspecialchars_decode=###}
@@ -95,7 +95,7 @@
           <div class="post-tools space-top-2x">
             <div class="column"></div>
             <div class="column text-center">
-              <a href="javascript:;" id="addsatr"><i class="fa fa-thumbs-up dz" aria-hidden="true">（{$cat.a_zan}）</i></a>
+              <a href="javascript:;" id="addsatr"><i class="fa fa-thumbs-up dz" id="zan" aria-hidden="true">（{$cat.a_zan}）</i></a>
             </div><!-- .column -->
             <div class="column">
             </div><!-- .column -->
@@ -177,16 +177,19 @@
   <script src="__PUBLIC_HOME__/js/scripts.js"></script>
 <script>
   $('#addsatr').click(function (){
-    alert(1);
-    $.ajax({
-      url:"{:U('addstra')}",
-      date:'post',
-      success: function (mse){
-        if(mse == 0){
-
-        }else{
-          alert(1);
-        }
+      var id = "{$cat.id}";
+      var zan = {$cat.a_zan};
+      $.ajax({
+        url:"{:U('Index/addstra')}",
+        type:'post',
+        data:{'id':id},
+        success: function (msg){
+            var data = JSON.parse(msg);
+          if(data.status === 1){
+            $('#zan').html('（'+ ++zan +'）');
+          }else{
+            alert(data.msg);
+          }
       }
     });
   });
