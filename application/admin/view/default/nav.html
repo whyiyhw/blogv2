@@ -1,0 +1,49 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                        <span>
+                            {eq name="userInfo.user_path" value=""}
+                                <img alt="image" class="img-circle" src="{:config('admin_base_path')}img/profile_small.jpg" />
+                            {else}
+                                <img alt="image" height="48px" class="img-circle" src="{:config('admin_img_path').$userInfo.user_path}" />
+                            {/eq}
+                        </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{$userInfo.user_nikename}</strong>
+                             </span> <span class="text-muted text-xs block">{$userInfo.user_work} <b class="caret"></b></span> </span> </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <!--<li><a href="profile.html">Profile</a></li>-->
+
+                        <li class="divider"></li>
+                        <li><a href="{:url('/adminprov/loginOut')}">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    Yi+
+                </div>
+            </li>
+
+            {volist name="nodeList" id="vo"}
+                <li>
+                    <a href="{:url($vo.f_node.router)}"><i class="fa {$vo.f_node.icon}"></i> <span class="nav-label">{$vo.f_node.name}</span></a>
+
+                    {neq name="$vo.z_node" value=""}
+                        <ul class="nav nav-second-level collapse">
+
+                            {volist name="$vo.z_node" id="node_list"}
+                                <li>
+                                    <a href="{:url($node_list.router)}">{$node_list.name}</a>
+                                </li>
+                            {/volist}
+
+                        </ul>
+                    {/neq}
+                </li>
+            {/volist}
+
+        </ul>
+
+    </div>
+</nav>

@@ -1,2 +1,0 @@
-<?php die('forbidden'); ?>
-{"appid":"101435210","appkey":"5f37349eb02103f44c8026b23391114e","callback":"http://www.bloog.com/Home/Login/qqretrun","scope":"get_user_info","errorReport":true,"storageType":"file","host":"localhost","user":"root","password":"root","database":"test"}

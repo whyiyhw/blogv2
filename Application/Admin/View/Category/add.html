@@ -1,80 +1,173 @@
-<!doctype html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>新增分类</title>
-    <!--[if lt IE 9]>
-    <script type="text/javascript" src="__PUBLIC_HUI__/lib/html5shiv.js"></script>
-    <script type="text/javascript" src="__PUBLIC_HUI__/lib/respond.min.js"></script>
-    <![endif]-->
-    <link rel="stylesheet" type="text/css" href="__PUBLIC_HUI__/static/h-ui/css/H-ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="__PUBLIC_HUI__/static/h-ui.admin/css/H-ui.admin.css" />
-    <link rel="stylesheet" type="text/css" href="__PUBLIC_HUI__/lib/Hui-iconfont/1.0.8/iconfont.css" />
-    <link rel="stylesheet" type="text/css" href="__PUBLIC_HUI__/static/h-ui.admin/skin/default/skin.css" id="skin" />
-    <link rel="stylesheet" type="text/css" href="__PUBLIC_HUI__/static/h-ui.admin/css/style.css" />
-    <!--[if IE 6]>
-    <script type="text/javascript" src="__PUBLIC_HUI__/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
-    <script>DD_belatedPNG.fix('*');</script>
-    <![endif]-->
-</head>
-<body>
-<div id="page">
-    <!-- start page title -->
-    <nav class="breadcrumb">
-        <i class="Hui-iconfont">&#xe67f;</i>
-        首页
-        <span class="c-gray en">&gt;</span>
-        分类管理
-        <span class="c-gray en">&gt;</span>
-        新增分类
-        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
-    </nav>
-    <!-- end page title -->
+{extend name="admin@default/base" /}
 
-    <!-- START CONTENT -->
-    <div class="page-container">
+{block name="title"}{$title}{/block}
 
-        <form class="form form-horizontal" id="form-article-add"  method="post" action="{:U('add')}">
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类标题：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="分类标题"  name="name">
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>父分类：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                            <span class="select-box">
-                                <select name="parent_id" class="select">
-                                    <option value="0">顶级分类</option>
-                                    <volist name="category" id="cat">
-                                        <option value="{$cat.id}">{$cat.lev|str_repeat='---',###}{$cat.c_name}</option>
-                                    </volist>
-                                </select>
-                            </span>
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>排序：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="排序"  name="sort">
-                </div>
-            </div>
+{block name="css"}
+<link href="{:config('admin_base_path')}css/bootstrap.min.css" rel="stylesheet">
+<link href="{:config('admin_base_path')}font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href="{:config('admin_base_path')}css/animate.css" rel="stylesheet">
+<link href="{:config('admin_base_path')}css/style.css" rel="stylesheet">
+{/block}
 
-            <div class="row cl">
-                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-                    <button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont"></i> 提交</button>
-                </div>
-            </div>
-
-        </form>
-
-
+{block name="right-header-bottom"}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Yi+</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="{:url('/adminprov/index')}">首页</a>
+            </li>
+            <li class="active">
+                <strong>{$title}</strong>
+            </li>
+        </ol>
     </div>
-    <!-- END CONTENT -->
+    <div class="col-sm-8">
+        <div class="title-action">
+            <a href="{:url('adminprov/category/list')}" class="btn btn-success">返回列表</a>
+            <a href="" class="btn btn-primary">刷新</a>
+        </div>
+    </div>
 </div>
-</body>
-</html>
+{/block}
+
+
+{block name="content"}
+<div class="wrapper wrapper-content" id="app">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{$title}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">设定(一)</a>
+                                </li>
+                                <li><a href="#">设定(二)</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="get" class="form-horizontal">
+                            <div class="form-group"><label class="col-sm-2 control-label">分类名</label>
+
+                                <div :class="{ 'col-md-4':true, 'has-error': err }">
+                                    <input type="text" class="form-control" placeholder="分类名"  v-model="node_name">
+                                    <span class="help-block m-b-none" v-show="err">{{err}}</span>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group"><label class="col-sm-2 control-label">父分类</label>
+
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="node" v-model="node_f_id">
+                                        <option value="0">顶级分类</option>
+                                        <option v-for="(node , index) in parent_node" :key="node.id" :value="node.id">{{node.name}}</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed" ></div>
+
+
+                            <div class="form-group"><label class="col-sm-2 control-label">排序</label>
+
+                                <div class="col-sm-1">
+                                    <input type="text" class="form-control" value="" name="sort" v-model="node_sort">
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary" @click="saveNode" type="button">保存</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+
+
+{block name="javascript"}
+<!-- Mainly scripts -->
+<script src="{:config('admin_base_path')}js/jquery-3.1.1.min.js"></script>
+<script src="{:config('admin_base_path')}js/bootstrap.min.js"></script>
+<script src="{:config('admin_base_path')}js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="{:config('admin_base_path')}js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!--layer-->
+<script src="{:config('admin_base_path')}js/layer.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="{:config('admin_base_path')}js/inspinia.js"></script>
+<script src="{:config('admin_base_path')}js/plugins/pace/pace.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            err: false,
+            parent_node:[],
+            node_name:'',
+            node_f_id: 0,
+            node_sort:50,
+        },
+        methods:{
+            saveNode:function () {
+                var _this = this;
+                $.post(
+                    "{:url('/adminprov/category/add')}",
+                    {f_id:this.node_f_id,name:this.node_name,sort:this.node_sort,},
+                    function (data) {
+                        var data = JSON.parse(data);
+                        if (data.status){
+                            layer.msg(data.msg);
+                            //2.5秒后刷新本页面
+                            setInterval(location.reload(),2500);
+                        } else {
+                            layer.msg(data.msg);
+//                            _this.err = data.msg;
+                        }
+                    }
+                )
+            }
+        }
+        ,
+        created:function () {
+            var _this = this;
+            $.post("{:url('/adminprov/category/getParentNode')}",'',function (data) {
+                var data = JSON.parse(data);
+                if (data.status){
+                    _this.parent_node = data.data;
+                    console.log(_this.parent_node);
+                } else {
+                    console.log(data.msg);
+                }
+            });
+        }
+
+    })
+</script>
+{/block}
+
+{/block}

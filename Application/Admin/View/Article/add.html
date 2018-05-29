@@ -1,116 +1,316 @@
-<!doctype html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>博文新增</title>
-    <!--[if lt IE 9]>
-    <script type="text/javascript" src="__PUBLIC_HUI__/lib/html5shiv.js"></script>
-    <script type="text/javascript" src="__PUBLIC_HUI__/lib/respond.min.js"></script>
-    <![endif]-->
-    <link rel="stylesheet" type="text/css" href="__PUBLIC_HUI__/static/h-ui/css/H-ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="__PUBLIC_HUI__/static/h-ui.admin/css/H-ui.admin.css" />
-    <link rel="stylesheet" type="text/css" href="__PUBLIC_HUI__/lib/Hui-iconfont/1.0.8/iconfont.css" />
-    <link rel="stylesheet" type="text/css" href="__PUBLIC_HUI__/static/h-ui.admin/skin/default/skin.css" id="skin" />
-    <link rel="stylesheet" type="text/css" href="__PUBLIC_HUI__/static/h-ui.admin/css/style.css" />
-    <!--[if IE 6]>
-    <script type="text/javascript" src="__PUBLIC_HUI__/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
-    <script>DD_belatedPNG.fix('*');</script>
-    <![endif]-->
-</head>
-<body>
-    <div id="page">
-    <!-- start page title -->
-    <nav class="breadcrumb">
-        <i class="Hui-iconfont">&#xe67f;</i>
-        首页
-        <span class="c-gray en">&gt;</span>
-        博文管理
-        <span class="c-gray en">&gt;</span>
-        博文新增
-        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
-    </nav>
-    <!-- end page title -->
+{extend name="admin@default/base" /}
 
-    <!-- START CONTENT -->
-    <div class="page-container">
+{block name="title"}{$title}{/block}
 
-                <form class="form form-horizontal" id="form-article-add"  method="post" action="{:U('add')}">
-                    <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>标题：</label>
-                        <div class="formControls col-xs-8 col-sm-9">
-                            <input type="text" class="input-text" value="" placeholder="文章标题"  name="a_name">
-                        </div>
-                    </div>
-                    <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类：</label>
-                        <div class="formControls col-xs-8 col-sm-9">
-                            <span class="select-box">
-                                <select name="c_id" class="select">
-                                    <option value="0">任意</option>
-                                    <volist name="category" id="cat">
-                                        <option value="{$cat.id}">{$cat.lev|str_repeat='---',###}{$cat.c_name}</option>
-                                    </volist>
-                                </select>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>状态：</label>
-                        <div class="formControls col-xs-8 col-sm-9">
-                            <span class="select-box">
-                                <select name="a_status" class="select">
-                                    <option value="1">草稿</option>
-                                    <option value="2" selected="selected">公开</option>
-                                    <option value="3">隐藏</option>
-                                </select>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>推荐指数：</label>
-                        <div class="formControls col-xs-8 col-sm-9">
-                            <input type="text" class="input-text" value="" placeholder="推荐指数"  name="a_sort">
-                        </div>
-                    </div>
-                    <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>标签：</label>
-                        <div class="formControls col-xs-8 col-sm-9">
-                            <input type="text" class="input-text" value="" placeholder="文章标题"  name="a_title">
-                        </div>
-                    </div>
+{block name="css"}
+<link href="{:config('admin_base_path')}css/bootstrap.min.css" rel="stylesheet">
+<link href="{:config('admin_base_path')}font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href="{:config('admin_base_path')}css/animate.css" rel="stylesheet">
+<link href="{:config('admin_base_path')}css/style.css" rel="stylesheet">
+<link href="{:config('admin_base_path')}css/plugins/bootstrap-markdown/bootstrap-markdown.min.css" rel="stylesheet">
 
-                    <!-- START jWYSIWYG TEXT EDITOR -->
-                    <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>内容：</label>
-                        <div class="formControls col-xs-8 col-sm-9">
-                            <script id="editor" name="a_content" type="text/plain" style="width:736px;height:300px;"></script>
-                            <script type="text/javascript" charset="utf-8" src="__PUBLIC_UEDITOR__/ueditor.config.js"></script>
-                            <script type="text/javascript" charset="utf-8" src="__PUBLIC_UEDITOR__/ueditor.all.min.js"> </script>
-                            <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
-                            <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-                            <script type="text/javascript" charset="utf-8" src="__PUBLIC_UEDITOR__/lang/zh-cn/zh-cn.js"></script>
-                        </div>
-                    </div>
-                    <!-- END jWYSIWYG TEXT EDITOR -->
-                    <div class="row cl">
-                        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-                            <button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont"></i> 提交</button>
-                        </div>
-                    </div>
-                    <!--<div class="button-box" style="z-index: 460;">-->
-                        <!--<input type="submit" name="button" id="button" value="提交" class="st-button">-->
-                    <!--</div>-->
-                </form>
+<!--编辑器css-->
+<link href="{:config('admin_base_path')}css/plugins/summernote/summernote.css" rel="stylesheet">
+<link href="{:config('admin_base_path')}css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+
+<!--上传css-->
+<link href="{:config('admin_base_path')}css/plugins/dropzone/basic.css" rel="stylesheet">
+<link href="{:config('admin_base_path')}css/plugins/dropzone/dropzone.css" rel="stylesheet">
+<link href="{:config('admin_base_path')}css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+<link href="{:config('admin_base_path')}css/plugins/codemirror/codemirror.css" rel="stylesheet">
+{/block}
 
 
+{block name="right-header-bottom"}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Yi+</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="{:url('/adminprov/index')}">首页</a>
+            </li>
+            <li class="active">
+                <strong>{$title}</strong>
+            </li>
+        </ol>
     </div>
-    <!-- END CONTENT -->
+    <div class="col-sm-8">
+        <div class="title-action">
+            <a href="{:url('adminprov/article/list')}" class="btn btn-success">返回列表</a>
+            <a href="" class="btn btn-primary">刷新</a>
+        </div>
+    </div>
 </div>
-</body>
-</html>
+{/block}
+
+
+{block name="content"}
+<div class="wrapper wrapper-content" id="app">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>新增节点</h5>
+
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">设定(一)</a>
+                                </li>
+                                <li><a href="#">设定(二)</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="ibox-content">
+                        <form method="get" class="form-horizontal">
+                            <div class="form-group"><label class="col-sm-2 control-label">博文标题</label>
+
+                                <div :class="{ 'col-md-4':true}">
+                                    <input type="text" class="form-control" placeholder="博文标题" v-model="node_title">
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group"><label class="col-sm-2 control-label">分类</label>
+
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="node" v-model="node_f_id">
+                                        <option v-for="(node , index) in parent_node" :key="node.id" :value="node.id">
+                                            {{node.name}}
+                                        </option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group"><label class="col-sm-2 control-label">描述</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" value="" v-model="node_description">
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group"><label class="col-sm-2 control-label">标签</label>
+
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" value="" name="icon" placeholder="多个标签以，隔开"
+                                           v-model="node_tag">
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group"><label class="col-sm-2 control-label">排序</label>
+
+                                <div class="col-sm-1">
+                                    <input type="text" class="form-control" value="" name="sort" v-model="node_sort">
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group"><label class="col-sm-2 control-label">上传图片</label>
+
+                                <div class="col-sm-8">
+                                    <div class="dropzone dz-clickable" id="dropzoneForm"
+                                         style="border: 1px dashed #1ab394">
+
+                                        <div class="dz-default dz-message">
+                                            <span>
+                                                <strong>拖动文件或者点击上传 </strong>
+                                                <br /><span>单文件上传</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group"><label class="col-sm-2 control-label">内容</label>
+
+                                <div class="col-sm-10">
+                                    <div class="ibox float-e-margins">
+                                        <div class="ibox-content no-padding">
+                                            <textarea class="summernote" id="content" :value="node_content"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary" @click="saveNode" type="button">保存</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+
+{block name="javascript"}
+<!-- Mainly scripts -->
+<script src="{:config('admin_base_path')}js/jquery-3.1.1.min.js"></script>
+<script src="{:config('admin_base_path')}js/bootstrap.min.js"></script>
+<script src="{:config('admin_base_path')}js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="{:config('admin_base_path')}js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!--layer-->
+<script src="{:config('admin_base_path')}js/layer.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="{:config('admin_base_path')}js/inspinia.js"></script>
+<script src="{:config('admin_base_path')}js/plugins/pace/pace.min.js"></script>
+
+<!--编辑器js-->
+<script src="{:config('admin_base_path')}js/plugins/summernote/summernote.min.js"></script>
+<!-- Jasny -->
+<script src="{:config('admin_base_path')}js/plugins/jasny/jasny-bootstrap.min.js"></script>
+<!-- DROPZONE -->
+<script src="{:config('admin_base_path')}js/plugins/dropzone/dropzone.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
-    UE.getEditor('editor');
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            parent_node: [],
+            node_title: '',
+            node_f_id: 0,
+            node_description:'',
+            node_tag:'',
+            node_sort:50,
+            node_content:'',
+            file_name: '',
+        },
+        methods: {
+            saveNode: function () {
+                $.post(
+                        "{:url('/adminprov/article/add')}",
+                        {
+                            cate_id: this.node_f_id,
+                            title: this.node_title,
+                            description:this.node_description,
+                            tag:this.node_tag,
+                            path_url:this.file_name,
+                            sort: this.node_sort,
+                            content: $('.panel-body').html(),
+                        },
+                        function (data) {
+                            var data = JSON.parse(data);
+                            if (data.status) {
+                                layer.msg(data.msg);
+                                //2.5秒后刷新本页面
+                                setInterval(location.reload(), 2500);
+                            } else {
+                                layer.msg(data.msg);
+                            }
+                        }
+                )
+            }
+        }
+        ,
+        created: function () {
+            var _this = this;
+            $.post("{:url('/adminprov/category/getAllNode')}", '', function (data) {
+                var data = JSON.parse(data);
+                if (data.status) {
+                    _this.parent_node = data.data;
+                    console.log(_this.parent_node);
+                } else {
+                    console.log(data.msg);
+                }
+            });
+        }
+
+    })
+
+    Dropzone.options.dropzoneForm = {
+        url: "/adminprov/upload",//文件提交地址
+        method: "post",  //也可用put
+        paramName: "file", //默认为file
+        maxFiles: 1,//一次性上传的文件数量上限
+        maxFilesize: 2, //文件大小，单位：MB
+        acceptedFiles: ".jpg,.gif,.png,.jpeg", //上传的类型
+        addRemoveLinks: true,//增加移除标记
+        parallelUploads: 1,//一次上传的文件数量
+        //previewsContainer:"#preview",//上传图片的预览窗口
+        dictDefaultMessage: '拖动文件至此或者点击上传',
+        dictMaxFilesExceeded: "您最多只能上传1个文件！",
+        dictResponseError: '文件上传失败!',
+        dictInvalidFileType: "文件类型只能是*.jpg,*.gif,*.png,*.jpeg。",
+        dictFallbackMessage: "浏览器不受支持",
+        dictFileTooBig: "文件过大上传文件最大支持.",
+        dictRemoveLinks: "删除",
+        dictCancelUpload: "取消",
+        init: function () {
+            this.on("addedfile", function (file) {
+                //上传文件时触发的事件
+                document.querySelector('div .dz-default').style.display = 'none';
+                console.log('上传中');
+            });
+            this.on("success", function (file, data) {
+                //上传成功触发的事件
+//                    console.log(file);
+                var data = JSON.parse(data);
+                console.log(data);
+                vm.file_name = data.data.file_path;
+
+            });
+            this.on("error", function (file, data) {
+                //上传失败触发的事件
+                data = JSON.parse(data);
+                console.log(file);
+                layer.msg(data.msg);
+            });
+            this.on("removedfile", function (file) {
+                //删除文件时触发的方法
+                var file_name = vm.file_name;
+                if (file_name) {
+                    $.post('/adminprov/image/del', {'file_name': file_name}, function (data) {
+                        var data = JSON.parse(data);
+                        console.log('删除结果:' + data.msg);
+                    })
+                }
+                vm.file_name = '';
+                document.querySelector('div .dz-default').style.display = 'block';
+            });
+        }
+
+    };
+
+    $(document).ready(function(){
+
+        $('.summernote').summernote({
+            height:500,
+        });
+    });
+
+
 </script>
+{/block}
+
+{/block}

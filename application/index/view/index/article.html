@@ -1,0 +1,104 @@
+{extend name="index@default/base" /}
+
+{block name="title"}{$title}{/block}
+
+{block name="css"}
+<link href="{:config('admin_base_path')}css/bootstrap.min.css" rel="stylesheet">
+<link href="{:config('admin_base_path')}font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href="{:config('admin_base_path')}css/animate.css" rel="stylesheet">
+<link href="{:config('admin_base_path')}css/style.css" rel="stylesheet">
+<!-- Toastr style -->
+<link href="{:config('admin_base_path')}css/plugins/toastr/toastr.min.css" rel="stylesheet">
+{/block}
+
+
+{block name="content"}
+<div class="wrapper wrapper-content  animated fadeInRight article">
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="pull-right">
+                        <button class="btn btn-white btn-xs" type="button">Model</button>
+                        <button class="btn btn-white btn-xs" type="button">Publishing</button>
+                        <button class="btn btn-white btn-xs" type="button">Modern</button>
+                    </div>
+                    <div class="text-center article-title">
+                        <span class="text-muted"><i
+                                class="fa fa-clock-o"></i>{$data.create_time|date="Y-m-d",###}</span>
+                        <h1>
+                            {$data.title}
+                        </h1>
+                    </div>
+                    <div>
+                        {$data.content|htmlspecialchars_decode=###}
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Tags:</h5>
+                            <button class="btn btn-primary btn-xs" type="button">{$data.tag}</button>
+                            <!--<button class="btn btn-white btn-xs" type="button">Publishing</button>-->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="small text-right">
+                                <h5>Stats:</h5>
+                                <!--<div> <i class="fa fa-comments-o"> </i> 56 comments </div>-->
+                                <!--<i class="fa fa-eye"> </i> 144 views-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+
+                                <h2>Comments:</h2>
+
+                                <!--<div class="social-feed-box">-->
+                                <!--<div class="social-avatar">-->
+                                <!--<a href="" class="pull-left">-->
+                                <!--<img alt="image" src="img/a1.jpg">-->
+                                <!--</a>-->
+                                <!--<div class="media-body">-->
+                                <!--<a href="#">-->
+                                <!--Andrew Williams-->
+                                <!--</a>-->
+                                <!--<small class="text-muted">Today 4:21 pm - 12.06.2014</small>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="social-body">-->
+                                <!--<p>-->
+                                <!--Many desktop publishing packages and web page editors now use Lorem Ipsum as their-->
+                                <!--default model text, and a search for 'lorem ipsum' will uncover many web sites still-->
+                                <!--default model text.-->
+                                <!--</p>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+
+{block name="javascript"}
+<!-- Mainly scripts -->
+<script src="{:config('admin_base_path')}js/jquery-3.1.1.min.js"></script>
+<script src="{:config('admin_base_path')}js/bootstrap.min.js"></script>
+<script src="{:config('admin_base_path')}js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="{:config('admin_base_path')}js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!--layer-->
+<script src="{:config('admin_base_path')}js/layer.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="{:config('admin_base_path')}js/inspinia.js"></script>
+<script src="{:config('admin_base_path')}js/plugins/pace/pace.min.js"></script>
+
+{/block}
+
+{/block}

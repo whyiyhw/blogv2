@@ -1,0 +1,45 @@
+<html>
+<head>
+    {block name="meta"}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {/block}
+
+    <title>Yi+ | {block name="title"}首页{/block}</title>
+
+    {block name="css"}{/block}
+
+</head>
+
+<body>
+
+<div id="wrapper">
+    {block name="menu"}
+        {include file="default/nav" /}
+    {/block}
+
+    <div id="page-wrapper" class="gray-bg">
+
+        {block name="right-header-top"}
+            {include file="default/header" /}
+        {/block}
+
+        {block name="right-header-bottom"} {/block}
+
+
+        {block name="content"} {/block}
+
+
+        {block name="footer"}
+            {include file="default/footer" /}
+        {/block}
+
+    </div>
+</div>
+
+
+{block name="javascript"} {/block}
+
+
+</body>
+</html>
